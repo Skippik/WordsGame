@@ -18,6 +18,8 @@ function App() {
     storeCommon.setWords(words[0].words);
   };
 
+  // "build": "react-scripts build",
+
   const onError = (error: Error) => {
     console.log(error);
   };

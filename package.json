@@ -27,7 +27,7 @@
   },
   "scripts": {
     "start": "concurrently --kill-others \"HTTPS=true craco start\"",
-    "build": "react-scripts build",
+    "build": "concurrently --kill-others \"HTTPS=true craco build\"",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
