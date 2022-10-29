@@ -1,3 +1,3 @@
 export type Word = {
-  title: string;
+  title: string | null;
 };

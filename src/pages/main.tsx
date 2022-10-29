@@ -19,6 +19,8 @@ const Main = () => {
   const [settingVisible, setSettingVisible] = useState(false);
   const [passwordState, setPasswordStete] = useState('');
 
+  console.log(word);
+
   const saveWord = () => {
     if (storeCommon.words.includes(word?.title || '')) {
       notification['error']({
@@ -27,6 +29,7 @@ const Main = () => {
       });
     } else {
       storeCommon.setWords([...storeCommon.words, word?.title || '']);
+      setWord(undefined);
       notification['success']({
         message: `Слово ${word?.title}, успешно принято`,
         description: 'Молодец',
@@ -69,6 +72,7 @@ const Main = () => {
         </div>
         <div className='s-main__input-wrapper'>
           <Input
+            value={word?.title || ''}
             allowClear={true}
             onChange={word => {
               setWord(w => ({
@@ -139,6 +143,9 @@ const Main = () => {
                 onClick={() => {
                   localStorage.removeItem('words');
                   storeCommon.setWords([]);
+                  firebase.firestore().collection('words').doc('word').update({
+                    words: storeCommon.words,
+                  });
                   setSettingVisible(false);
                   setPasswordStete('');
                 }}
@@ -148,7 +155,7 @@ const Main = () => {
             ) : (
               <>
                 <Title level={4}>Введите пароль</Title>
-                <Input
+                <Input.Password
                   onChange={pass => {
                     setPasswordStete(pass.target.value);
                   }}
