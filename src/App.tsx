@@ -15,7 +15,9 @@ function App() {
 
   const onResult = (QuerySnapshot: any) => {
     const words = QuerySnapshot.docs.map((doc: any) => doc.data());
-    storeCommon.setWords(words[0].words);
+    console.log('words', words);
+
+    storeCommon.setWords(words[0].test);
   };
 
   // "build": "react-scripts build",
@@ -28,7 +30,8 @@ function App() {
     setLoading(true);
     const subscriber = firebase
       .firestore()
-      .collection('words')
+      // .collection('words')
+      .collection('test')
       .onSnapshot(onResult, onError);
     setLoading(false);
     return () => subscriber();
